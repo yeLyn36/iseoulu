@@ -1,0 +1,7 @@
+{
+    "DESCRIPTION" : {"THEME":"테마","INFO":"정보","TITLE":"행사명","KINDS":"종류","END_DATE":"종료일","START_DATE":"시작일","PLACE":"주소","USE_FEE":"이용요금","STARTED_AT":"시작하는시간","FINISHED_AT":"끝나는시간"},
+    "DATA" : [
+        {"theme":"","info":"","title":"","kinds":"","end_date":"","start_date":"","place":"","use_fee":"","started_at":"","finished_at":""}
+
+    ]
+}

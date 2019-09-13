@@ -3,27 +3,23 @@
 import json
 from datetime import datetime
 
-concert = []
-classic = []
-theater = []
-musical = []
-festival = []
+강북 = []
+동서울 = []
+동남 = []
+강남 = []
+도심 = []
+남서울 = []
+서서울 = []
+동남 = []
 timeList = []
+
 # 저 이제 뭐하죠 어제 또 뭐 필요하다고 했더라
 with open('nogada.json', encoding='utf-8') as json_file:
     json_data = json.load(json_file)
-
-    for i in range(0,1):
+    for i in range(0,len(json_data)):
         theme = json_data["DATA"][i]["theme"]
         title = json_data["DATA"][i]['title']
-        # if theme == "":
-        #     concert.append(title)
-        # elif theme == "":
-        #     classic.append(title)
-        # elif theme == "극":
-        #     theater.append(title)
-        # elif theme == "":
-        #     musical.append(title)
+       
 
 def get_list_theme(self, geted_theme): #테마별 행사 조회
     for j in range(0,len(json_data)):
@@ -45,6 +41,15 @@ def get_list_time(st_time, en_time): # 파라미터 st_time 시작시간, en_tim
             timeList.append(json_data["DATA"][i])
             return timeList
         else : return "해당하는 시간대가 없습니다." # 할 말 없어서 그냥 문자열로 넘김
+
+def return_gu():
+    for i in range(0,len(json_date):
+        data = json_data["DATA"][i]
+        place = data["place"][0:2]
+        if place == "도봉" or place == "강북" or place == "노원" place == "성북":
+            강북.append(data)
+        elif place = 
+
 
 if __name__=='__main__':
     print(get_list_time(17,21))

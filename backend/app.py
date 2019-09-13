@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, render_template,request, jsonify, redirect
+from api import api
 from service import seoul_service
 
 app = Flask(__name__)
@@ -29,6 +30,12 @@ def get_location():
         return jsonify({"ok":result})
     else :
         render_template('map.html')
+
+
+@app.route('/gomap', methods = ['GET'])
+def show_gu(place):
+    return render_template('map.html',geocode = api.return_gu(place))
+
 
 @app.route('/get',methods=['GET'])
 def get():

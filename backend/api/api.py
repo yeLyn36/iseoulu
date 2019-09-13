@@ -73,6 +73,7 @@ def return_gu(place):
         for j in gu[i]:
             if place[0:2] == j['place'][0:2]:
                 return gu[i]
+    return {"ok":False}
 
 
 

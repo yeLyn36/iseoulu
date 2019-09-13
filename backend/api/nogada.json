@@ -1,7 +1,29 @@
 {
     "DESCRIPTION" : {"THEME":"테마","INFO":"정보","TITLE":"행사명","KINDS":"종류","END_DATE":"종료일","START_DATE":"시작일","PLACE":"주소","USE_FEE":"이용요금","STARTED_AT":"시작하는시간","FINISHED_AT":"끝나는시간"},
     "DATA" : [
-        {"theme":"","info":"","title":"","kinds":"","end_date":"","start_date":"","place":"","use_fee":"","started_at":"","finished_at":""}
-
+        {
+            "theme": "여유로운 곳",
+            "info": "서울시에서 운영하는 불꽃 축제로 유명함",
+            "title": "서울시 불꽃 축제",
+            "kinds": "축제",
+            "end_date": "2019-10-31",
+            "start_date": "2019-09-01",
+            "place": "서울 한강",
+            "use_fee": "free",
+            "started_at": "18:00",
+            "finished_at": "01:00"
+        }, 
+        {
+            "theme": "모두가 즐길 수 있는 곳",
+            "info": "한강에서 남녀노소 모두가 자전거를 즐길 수 있는 공원",
+            "title": "한강",
+            "kinds": "공원",
+            "end_date": "2019-12-31",
+            "start_date": "2019-01-01",
+            "place": "서울 한강",
+            "use_fee": "free",
+            "started_at": "08:00",
+            "finished_at": "18:00"
+        }
     ]
 }

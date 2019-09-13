@@ -1,8 +1,6 @@
 #-*- coding:utf-8 -*-
-
 import json
 from datetime import datetime
-
 
 강북 = []
 동서울 = []
@@ -12,10 +10,8 @@ from datetime import datetime
 남서울 = []
 서서울 = []
 서남 = []
-
 timeList = []
 
-# 저 이제 뭐하죠 어제 또 뭐 필요하다고 했더라
 with open('nogada.json', encoding='utf-8') as json_file:
     json_data = json.load(json_file)
     for i in range(0,len(json_data)):
@@ -35,14 +31,25 @@ def get_list_time(st_time, en_time): # 파라미터 st_time 시작시간, en_tim
     str_time = now.replace(hour = st_time) # 사용자가 원하는 시작 시간
     end_time = now.replace(hour = en_time) # 사용자가 원하는 종료 시간
     for i in range(0,len(json_data)):
-        start = json_data["DATA"][i]["start_date"] + " " + json_data["DATA"][i]["started_at"] + ":00.000000" # 데이터의 시작시간 문자열
-        end = json_data["DATA"][i]["end_date"] + " " + json_data["DATA"][i]["finished_at"] + ":00.000000" # 데이터의 종료시간 문자열
-        str_at = datetime.strptime(start, "%Y-%m-%d %H:%M:%S.%f")
-        end_at = datetime.strptime(end, "%Y-%m-%d %H:%M:%S.%f")
-        if (str_time >= str_at) and (end_time <= end_at): # 12, 14 / 14, 23
-            timeList.append(json_data["DATA"][i])
-            return timeList
-        else : return "해당하는 시간대가 없습니다." # 할 말 없어서 그냥 문자열로 넘김
+        try :
+            start = json_data["DATA"][i]["start_date"] + " " + json_data["DATA"][i]["started_at"] + ":00.000000" # 데이터의 시작시간 문자열
+            end = json_data["DATA"][i]["end_date"] + " " + json_data["DATA"][i]["finished_at"] + ":00.000000" # 데이터의 종료시간 문자열
+            str_at = datetime.strptime(start, "%Y-%m-%d %H:%M:%S.%f")
+            end_at = datetime.strptime(end, "%Y-%m-%d %H:%M:%S.%f")
+            if (str_time >= str_at) and (end_time <= end_at): # 12, 14 / 14, 23
+                timeList.append(json_data["DATA"][i])
+                return timeList
+            else : return "해당하는 시간대가 없습니다." # 할 말 없어서 그냥 문자열로 넘김
+        except ValueError:
+            # cycle = json_data["DATA"][i]["start_date"]
+            # if cycle[2] == "년":
+                
+            # elif cycle[2] == "달" or cycle[2] == "월" or cycle[2] == "주":
+
+            # elif cycle == "상시가능":
+            pass
+        else:
+            return "Error"
 
 def return_gu():
     for i in range(0, len(json_date)):
@@ -63,7 +70,7 @@ def return_gu():
         elif place == "은평" or place == "마포" or place == "서대":
             서서울.append(data)
         elif place == "종로" or place == "중구" or place == "용산":
-            서서울.append(data)
+            도심.append(data)
         else : return "서울 내의 위치한 자치구가 아닙니다."
 
 if __name__=='__main__':

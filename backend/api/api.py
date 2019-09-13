@@ -40,14 +40,11 @@ with open('nogada.json', encoding='utf-8') as json_file:
 
 
 def get_list_theme(geted_theme): #테마별 행사 조회
-    for j in range(0,len(json_data["DATA"])):
-        theme = [1, 2, 3, 4, 5, 6]
-        for i in theme:
-            if geted_theme == i:
-                themeList.append(json_data["DATA"][i])
-                return themeList
+    for i in range(0,len(json_data["DATA"])):
+        if geted_theme == json_data["DATA"][i]["theme"]:
+            themeList.append(json_data["DATA"][i])
+            return themeList
     return {"ok":False}
-
 
 def get_list_time(st_time, en_time): # 파라미터 st_time 시작시간, en_time 종료 시간
     now = datetime.now() # 지금의 datetime
@@ -74,14 +71,12 @@ def get_list_time(st_time, en_time): # 파라미터 st_time 시작시간, en_tim
         else:
             return "Error"
 
-
 def return_gu(place):
     for i in range(0,len(json_data["DATA"])):
         if json_data["DATA"][i]["place"][0:2] == place[0:2]:
             구.append(json_data["DATA"][i])
             return 구
     return {"ok":False}
-
 
 
 if __name__=='__main__':

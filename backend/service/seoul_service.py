@@ -5,9 +5,11 @@ sys.path.append('..')
 
 from db.base import Session, Base, engine
 from db.Seoul import Seoul
+import json
 
 session = Session()
-
+with open('nogada.json', encoding='utf-8') as json_file:
+    json_data = json.load(json_file)
 
 def init_db():
     Base.metadata.create_all(engine)
@@ -41,3 +43,4 @@ def delete(lc_id):
 
 if __name__ == '__main__':
   create_location("중구 명동 세종대로 110")
+  get_location(2)

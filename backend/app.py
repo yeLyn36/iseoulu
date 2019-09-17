@@ -3,16 +3,14 @@
 from flask import Flask, render_template, request, jsonify, redirect
 from api import api
 from service import seoul_service
+from db import db
 
 app = Flask(__name__)
-
-location = [{"id": "1", "place": "중구 명동 세종대로 110"},
-            {"id": "2", "place": "기흥구 강남동로 128"}]
-
 
 @app.route('/')
 def index():
     return render_template("index.html")
+    db.connect(app)
 
 
 @app.route('/create', methods=['GET', 'POST'])  # db 넣고 없어질 메소드
@@ -21,7 +19,7 @@ def create():
         content = request.json
         print(content['location'])
         seoul_service.create_location(content['location'])
-        return jsonify({"ok": True})
+        return jsonify()
     else:
         return jsonify({"ok": False})
 
@@ -29,8 +27,8 @@ def create():
 @app.route('/gomap', methods=['GET', 'POST'])
 def get_location():
     if request.method == 'GET':
-        구 = request.args.get('gu')
-        result = api.return_gu(구)
+        gu = request.args.get('gu')
+        result = api.return_gu(gu)
         render_template('map.html', result=result)
 
 

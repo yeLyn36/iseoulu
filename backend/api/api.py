@@ -2,6 +2,7 @@
 import json
 from datetime import datetime
 
+
 강북 = []
 동서울 = []
 동남 = []
@@ -10,14 +11,13 @@ from datetime import datetime
 남서울 = []
 서서울 = []
 서남 = []
-
 구 = []
 themeList = []
 timeList = []
 
 with open('nogada.json', encoding='utf-8') as json_file:
     json_data = json.load(json_file)
-    for i in range(0,len(json_data)):
+    for i in range(0,len(json_data['DATA'])):
         data = json_data["DATA"][i]
         place = data["place"][0:2]
         if place == "도봉" or place == "강북" or place == "노원" or place == "성북":
@@ -36,7 +36,7 @@ with open('nogada.json', encoding='utf-8') as json_file:
             서서울.append(data)
         elif place == "종로" or place == "중구" or place == "용산":
             도심.append(data)
-    gu = [강북, 동서울, 동남, 강남, 남서울, 서남, 서서울, 도심]
+    seoul = [강북, 동서울, 동남, 강남, 남서울, 서남, 서서울, 도심]
 
 
 def get_list_theme(geted_theme): #테마별 행사 조회
@@ -72,16 +72,16 @@ def get_list_time(st_time, en_time): # 파라미터 st_time 시작시간, en_tim
         else:
             return "Error"
 
-def return_gu(place):
-    for i in range(0,len(json_data["DATA"])):
-        if json_data["DATA"][i]["place"][0:2] == place[0:2]:
-            구.append(json_data["DATA"][i])
-            return 구
-    return {"ok":False}
+def return_gu(gu):
+    for j in seoul:
+        if gu == j:
+            for i in range(0,len(j)):
+                구.append(i['place'])
+    return 구
 
 
 if __name__=='__main__':
     #print(get_list_time(17,21))
-    print(return_gu("종로구 서린동 14-1 청계광장"))
+    print(return_gu("강북"))
     print()
     print(get_list_theme(2))

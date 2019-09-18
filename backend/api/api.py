@@ -39,21 +39,12 @@ with open('nogada.json') as json_file:
     seoul = {'강북':gangbuk,'동서울':dongseoul,'동남':dongnam, '강남':gangnam,'남서울':namseoul,'서남':seonam,'서서울':seoseoul,'도심':dosim}
 
 
-<<<<<<< HEAD
 def get_list_theme(geted_theme): #테마별 행사 조회
     for i in range(0,len(json_data["DATA"])):
         for j in range(len(json_data["DATA"][i]["theme"])):
             if geted_theme == json_data["DATA"][i]["theme"][j]:
                 themeList.append(json_data["DATA"][i])
     return themeList
-=======
-def get_list_theme(geted_theme):  # 테마별 행사 조회
-    for i in range(0, len(json_data["DATA"])):
-        if geted_theme == json_data["DATA"][i]["theme"]:
-            themeList.append(json_data["DATA"][i])
-            return themeList
-    return {"ok": False}
->>>>>>> ff16db028d1d56af9f1fe4759a475183d70ff608
 
 
 def get_list_time(st_time, en_time):  # 파라미터 st_time 시작시간, en_time 종료 시간

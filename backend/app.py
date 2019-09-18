@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, render_template, request, jsonify, redirect
+from flask import Flask, render_template, request, jsonify, redirect, escape, session
 from api import api
 from service import seoul_service
 
@@ -13,11 +13,14 @@ def index():
 
 
 @app.route('/create', methods=['GET', 'POST'])  # db 넣고 없어질 메소드
-def create():
+def review_create():
     if request.method == 'POST':
         content = request.json
-        print(content['location'])
-        seoul_service.create_location(content['location'])
+        id = '%s' % escape(session['id'])
+        location = content['location']
+        article = content['article']
+        star_score = content['star_score']
+        seoul_service.create_review(id, location, article, star_score)
         return jsonify()
     else:
         return jsonify({"ok": False})
@@ -38,15 +41,16 @@ def show_gu(place):
 
 @app.route('/get', methods=['GET'])
 def get():
-    result = seoul_service.get_all()
+    result = seoul_service.get_review()
     return jsonify({"ok": result})
 
 
 @app.route('/delete', methods=['POST', 'GET'])
-def delete():
+def review_delete():
     if request.method == 'POST':
-        id = request.args.get('id')
-        result = seoul_service.delete(id)
+        id = '%s' % escape(session['id'])
+        pwd = '%s' % escape(session['pwd'])
+        result = seoul_service.delete(id,pwd)
         print(result)
         return jsonify(result)
     else:

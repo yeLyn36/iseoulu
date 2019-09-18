@@ -3,14 +3,13 @@
 from flask import Flask, render_template, request, jsonify, redirect
 from api import api
 from service import seoul_service
-from db import db
+
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
     return render_template("index.html")
-    db.connect(app)
 
 
 @app.route('/create', methods=['GET', 'POST'])  # db 넣고 없어질 메소드

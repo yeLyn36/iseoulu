@@ -28,13 +28,13 @@ def get_review():
         reviewlist[i] = reviewlist[i].serialize
     return reviewlist
 
-def modify(member_id, newArticle):
+def modify_review(member_id, newArticle):
     newArticle = session.query(review).filter_by(id=member_id).first()
     review.article = newArticle
     session.commit()
     return review
 
-def delete(member_id, pwd):
+def delete_review(member_id, pwd):
     delete_review = session.query(review).filter_by(member_id=member_id).first()
     session.delete(delete_review)
     session.commit()

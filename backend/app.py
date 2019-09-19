@@ -50,8 +50,7 @@ def review_delete():
     if request.method == 'POST':
         id = '%s' % escape(session['id'])
         pwd = '%s' % escape(session['pwd'])
-        result = seoul_service.delete(id,pwd)
-        print(result)
+        result = seoul_service.delete_review(id,pwd)
         return jsonify(result)
     else:
         return False

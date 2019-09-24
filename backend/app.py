@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, render_template, request, jsonify, redirect, escape, session
-from api import api
-from service import seoul_service
+from map.api import api
+from map.service import seoul_service
 
 
 app = Flask(__name__)

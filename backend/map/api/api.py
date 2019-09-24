@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
+
 import json
 from datetime import datetime
-
 
 gangbuk = []
 dongseoul = []
@@ -15,7 +15,8 @@ gu1 = []
 themeList = []
 timeList = []
 
-with open('nogada.json') as json_file:
+
+with open('nogada.json', encoding="utf-8") as json_file:
     json_data = json.load(json_file)
     for i in range(0, len(json_data['DATA'])):
         data = json_data["DATA"][i]

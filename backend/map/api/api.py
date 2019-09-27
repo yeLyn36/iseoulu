@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 import json
-from datetime import datetime
+from datetime import datetime, time
 
 gangbuk = []
 dongseoul = []
@@ -14,9 +14,11 @@ seonam = []
 gu1 = []
 themeList = []
 timeList = []
+unknownList = []
+weekday_dict = {"월요일" : 1, "화요일" : 2, "수요일" : 3, "목요일" : 4, "금요일" : 5, "토요일": 6, "일요일" : 0}
 
 
-with open('nogada.json', encoding="utf-8") as json_file:
+with open('culture_data.json', encoding="utf-8") as json_file:
     json_data = json.load(json_file)
     for i in range(0, len(json_data['DATA'])):
         data = json_data["DATA"][i]
@@ -62,21 +64,36 @@ def get_list_time(st_time, en_time):  # 파라미터 st_time 시작시간, en_ti
                 ":00.000000"  # 데이터의 종료시간 문자열
             str_at = datetime.strptime(start, "%Y-%m-%d %H:%M:%S.%f")
             end_at = datetime.strptime(end, "%Y-%m-%d %H:%M:%S.%f")
-            if (str_time >= str_at) and (end_time <= end_at):  # 12, 14 / 14, 23
+            if (str_time >= str_at) and (end_time <= end_at):  # 17, 21
                 timeList.append(json_data["DATA"][i])
-                return timeList
             else:
-                return "해당하는 시간대가 없습니다."  # 할 말 없어서 그냥 문자열로 넘김
+                msg = "해당하는 시간대가 없습니다."  # 할 말 없어서 그냥 문자열로 넘김
         except ValueError:
-            # cycle = json_data["DATA"][i]["start_date"]
-            # if cycle[2] == "년":
-
-            # elif cycle[2] == "달" or cycle[2] == "월" or cycle[2] == "주":
-
-            # elif cycle == "상시가능":
-            pass
-        else:
-            return "Error"
+            weekday = now.weekday()
+            weekSt = weekday_dict[json_data["DATA"][i]["start_date"]]
+            weekEnd = weekday_dict[json_data["DATA"][i]["end_date"]]
+            if (weekday >= weekSt * weekday <= weekEnd) or (weekday >= weekSt + weekday <= weekEnd):
+                str_at = time(int(json_data["DATA"][i]["started_at"][:2]), int(json_data["DATA"][i]["started_at"][3:5]))
+                end_at = time(int(json_data["DATA"][i]["finished_at"][:2]), int(json_data["DATA"][i]["finished_at"][3:5]))
+                start_time = time(str_time.hour, str_time.minute)
+                finish_time = time(end_time.hour, end_time.minute)
+                if (str_at < start_time) and (end_at > finish_time) :
+                    timeList.append(json_data["DATA"][i])
+            else :
+                unknownList.append(json_data["DATA"][i])
+                
+            # for i in range(len(json_data["DATA"])):
+            #     cycle = json_data["DATA"][i]["start_date"]
+            #     if cycle[2] == "월":
+            #         pass
+            #     elif cycle[2:] == "요일":
+            #         pass
+            #     else:
+            #         return "Error"
+    if timeList == None:
+        # return unknownList
+        return msg
+    return timeList, unknownList 
 
 
 def return_gu(gu):
@@ -88,7 +105,7 @@ def return_gu(gu):
 
 
 if __name__ == '__main__':
-    # print(get_list_time(17,21))
-    print(return_gu("도심"))
-    print()
+    print(get_list_time(17,21))
+    # print(return_gu("도심"))
+    # print()
    # print(get_list_theme(2))

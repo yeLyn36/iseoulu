@@ -15,7 +15,9 @@ gu1 = []
 themeList = []
 timeList = []
 unknownList = []
-weekday_dict = {"월요일" : 1, "화요일" : 2, "수요일" : 3, "목요일" : 4, "금요일" : 5, "토요일": 6, "일요일" : 0}
+all_list = []
+
+weekday_dict = {"월요일": 1, "화요일" : 2, "수요일" : 3, "목요일" : 4, "금요일" : 5, "토요일": 6, "일요일" : 0}
 
 
 with open('culture_data.json', encoding="utf-8") as json_file:
@@ -40,6 +42,12 @@ with open('culture_data.json', encoding="utf-8") as json_file:
         elif place == "종로" or place == "중구" or place == "용산":
             dosim.append(data['place'])
     seoul = {'강북':gangbuk,'동서울':dongseoul,'동남':dongnam, '강남':gangnam,'남서울':namseoul,'서남':seonam,'서서울':seoseoul,'도심':dosim}
+
+
+def get_list_all():
+    for i in range(0, len(json_data["DATA"])):
+        all_list.append(json_data["DATA"][i])
+    return all_list
 
 
 def get_list_theme(geted_theme): #테마별 행사 조회
@@ -81,15 +89,6 @@ def get_list_time(st_time, en_time):  # 파라미터 st_time 시작시간, en_ti
                     timeList.append(json_data["DATA"][i])
             else :
                 unknownList.append(json_data["DATA"][i])
-                
-            # for i in range(len(json_data["DATA"])):
-            #     cycle = json_data["DATA"][i]["start_date"]
-            #     if cycle[2] == "월":
-            #         pass
-            #     elif cycle[2:] == "요일":
-            #         pass
-            #     else:
-            #         return "Error"
     if timeList == None:
         # return unknownList
         return msg
@@ -108,4 +107,5 @@ if __name__ == '__main__':
     print(get_list_time(17,21))
     # print(return_gu("도심"))
     # print()
-   # print(get_list_theme(2))
+    # print(get_list_theme(4))
+    # print(get_list_all())

@@ -3,7 +3,6 @@
 import sys
 sys.path.append('..')
 
-from db.base import Session, Base, engine
 from db.review import review
 import json
 

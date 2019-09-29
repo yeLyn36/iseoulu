@@ -3,7 +3,6 @@
 import sys
 sys.path.append('..')
 
-from db.member import member
 from flask import Flask, request, jsonify
 import json
 import pymysql

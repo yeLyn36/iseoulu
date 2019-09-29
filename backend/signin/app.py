@@ -38,9 +38,9 @@ def createMember():
     age = content['age']
     gender = content["gender"]
     data = sign_in.create_member(id, pwd, name, email, age, gender)
-        if data is None:
-            return "중복되었습니다."
-        return jsonify(data)
+    if data is None:
+        return "중복되었습니다."
+    return jsonify(data)
 
 
 @app.route('/modifyPwd', methods=['GET', 'POST'])  # db 넣고 없어질 메소드

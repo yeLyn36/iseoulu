@@ -3,11 +3,9 @@
 import sys
 sys.path.append('..')
 
-from db.base import Base, Session, engine
 from db.member import member
 from flask import Flask, request, jsonify
 import json
-# import sqlite3
 import pymysql
 
 # conn = sqlite3.connect("../../test.db")
@@ -19,22 +17,17 @@ conn = pymysql.connect(
   charset = "utf8"
 )
 
-session = Session()
-with open('member.json', mode="r", encoding="utf-8") as member_file:
-  member_data = json.load(member_file)
-# def get_json(member_json):
-#  member_data = request.json(member_json)
-  id = member_data['id']
-  pwd = member_data['pwd']
-  name = member_data['name']
-  age = int(member_data['age'])
-  gender = member_data['gender']
-  email = member_data['email']
-
-def init_db():
-  Base.metadata.create_all(engine)
-  global session
-  session = Session()
+# with open('member.json', mode="r", encoding="utf-8") as member_file:
+#   member_data = json.load(member_file)
+# # def get_json(member_json):
+# #  member_data = request.json(member_json)
+#   id = member_data['id']
+#   pwd = member_data['pwd']
+#   name = member_data['name']
+#   age = int(member_data['age'])
+#   gender = member_data['gender']
+#   email = member_data['email']
+# json파일은 클라이언트에서 받아옴
 
 
 def check_member(id): # 회원 중복 체크
@@ -80,7 +73,7 @@ def create_member(id, pwd, name, email, age, gender): # json 파일을 받아 �
         sql = "insert into member (id, pwd, name, email, age, gender) values (%s, %s, %s, %s, %s, %s)"
         cur.execute(sql, (id, pwd, name, email, age, gender))
         conn.commit()
-        return jsonify(return_json(id))
+        return return_json(id)
     finally:
       cur.close()
 
@@ -93,7 +86,7 @@ def modify_password(pwd, member_id): # 비밀번호 변경
       conn.commit()
   finally:
     cur.close()
-  return jsonify(return_json(member_id))
+  return return_json(member_id)
 
 
 def modify_age(age, member_id): # 나이 변경
@@ -104,7 +97,7 @@ def modify_age(age, member_id): # 나이 변경
       conn.commit()
   finally:
     cur.close()
-  return jsonify(return_json(member_id))
+  return return_json(member_id)
 
 def delete(member_id, pwd): #회원 탈퇴
   try:
@@ -112,7 +105,6 @@ def delete(member_id, pwd): #회원 탈퇴
       sql = "DELETE FROM member WHERE id=%s and pwd=%s;"
       cur.execute(sql, (member_id, pwd))
       conn.commit()
-      print("회원이 탈퇴되었습니다.")
-      return {"ok":True}
+      return True
   finally:
     cur.close()
